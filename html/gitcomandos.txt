@@ -1,0 +1,281 @@
+===============================================
+    GUIA COMPLETO DE COMANDOS GIT E GITHUB
+===============================================
+
+=== 1. INSTALAÇÃO E CONFIGURAÇÃO INICIAL ===
+
+# Instalar Git no Ubuntu/Debian
+sudo apt update
+sudo apt install git -y
+
+# Verificar versão instalada
+git --version
+
+# Configurar usuário globalmente
+git config --global user.name "Seu Nome"
+git config --global user.email "seu.email@exemplo.com"
+
+# Verificar configurações
+git config --global --list
+
+=== 2. INICIALIZAR REPOSITÓRIO LOCAL ===
+
+# Navegar para o diretório do projeto
+cd /caminho/para/seu/projeto
+
+# Inicializar repositório Git
+git init
+
+# Renomear branch principal para 'main'
+git branch -M main
+
+# Criar arquivo .gitignore (opcional)
+touch .gitignore
+
+=== 3. COMANDOS BÁSICOS DE VERSIONAMENTO ===
+
+# Ver status dos arquivos
+git status
+
+# Adicionar arquivos específicos
+git add nome_do_arquivo.txt
+
+# Adicionar todos os arquivos
+git add .
+
+# Fazer commit das mudanças
+git commit -m "Descrição clara da alteração"
+
+# Ver histórico de commits
+git log
+
+# Ver histórico resumido
+git log --oneline
+
+# Ver diferenças nos arquivos
+git diff
+
+# Ver diferenças de arquivos no staging
+git diff --staged
+
+=== 4. INSTALAÇÃO DO GITHUB CLI ===
+
+# Instalar curl (se necessário)
+sudo apt install curl -y
+
+# Baixar e instalar chave GPG do GitHub CLI
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+
+# Adicionar repositório do GitHub CLI
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+# Atualizar e instalar GitHub CLI
+sudo apt update
+sudo apt install gh -y
+
+# Verificar instalação
+gh --version
+
+=== 5. AUTENTICAÇÃO COM GITHUB ===
+
+# Fazer login no GitHub
+gh auth login
+
+# Siga as instruções:
+# 1. Escolha: GitHub.com
+# 2. Protocolo: SSH (recomendado)
+# 3. Gerar nova chave SSH: Yes
+# 4. Digite uma passphrase (opcional)
+# 5. Título da chave: github (ou outro nome)
+# 6. Autenticação: Login with web browser
+# 7. Copie o código e cole no navegador
+
+# Testar autenticação SSH
+ssh -T git@github.com
+
+# Adicionar chave SSH ao agente (se necessário)
+ssh-add ~/.ssh/id_ed25519
+
+=== 6. CONECTAR COM REPOSITÓRIO GITHUB ===
+
+# Criar repositório no GitHub
+gh repo create nome-do-projeto --public --description "Descrição do projeto"
+
+# Adicionar repositório remoto (HTTPS)
+git remote add origin https://github.com/usuario/nome-do-projeto.git
+
+# OU adicionar repositório remoto (SSH - Recomendado)
+git remote add origin git@github.com:usuario/nome-do-projeto.git
+
+# Verificar repositórios remotos
+git remote -v
+
+# Alterar URL do remoto para SSH (se necessário)
+git remote set-url origin git@github.com:usuario/nome-do-projeto.git
+
+=== 7. SINCRONIZAÇÃO COM GITHUB ===
+
+# Enviar código para GitHub (primeira vez)
+git push -u origin main
+
+# Enviar atualizações subsequentes
+git push
+
+# Baixar atualizações do GitHub
+git pull
+
+# Baixar sem fazer merge
+git fetch
+
+=== 8. TRABALHANDO COM BRANCHES ===
+
+# Listar branches
+git branch
+
+# Criar nova branch
+git checkout -b nome-da-branch
+
+# Mudar de branch
+git checkout nome-da-branch
+
+# Criar e mudar para nova branch
+git switch -c nova-funcionalidade
+
+# Deletar branch local
+git branch -d nome-da-branch
+
+# Enviar branch para GitHub
+git push -u origin nome-da-branch
+
+=== 9. COMANDOS DE USO DIÁRIO ===
+
+# Fluxo básico de trabalho:
+git status                              # Verificar mudanças
+git add .                               # Adicionar arquivos
+git commit -m "Descrição da mudança"    # Fazer commit
+git push                                # Enviar para GitHub
+
+# Desfazer mudanças:
+git checkout -- nome_arquivo.txt       # Desfazer mudanças não commitadas
+git reset HEAD nome_arquivo.txt        # Remover arquivo do staging
+git reset --soft HEAD~1                # Desfazer último commit (mantém mudanças)
+git reset --hard HEAD~1                # Desfazer último commit (perde mudanças)
+
+=== 10. COMANDOS ÚTEIS DO GITHUB CLI ===
+
+# Ver repositório no navegador
+gh repo view --web
+
+# Listar repositórios
+gh repo list
+
+# Clonar repositório
+gh repo clone usuario/nome-do-projeto
+
+# Criar issue
+gh issue create --title "Título" --body "Descrição"
+
+# Listar issues
+gh issue list
+
+# Ver pull requests
+gh pr list
+
+=== 11. CONFIGURAÇÕES ADICIONAIS ===
+
+# Configurar editor padrão para commits
+git config --global core.editor "code --wait"
+
+# Configurar cores no terminal
+git config --global color.ui auto
+
+# Configurar branch padrão como 'main'
+git config --global init.defaultBranch main
+
+# Ver todas as configurações
+git config --list
+
+=== 12. EXEMPLO PRÁTICO COMPLETO ===
+
+# 1. Criar e configurar projeto
+mkdir meu-projeto
+cd meu-projeto
+git init
+git branch -M main
+
+# 2. Criar arquivos iniciais
+echo "# Meu Projeto" > README.md
+echo "node_modules/" > .gitignore
+
+# 3. Primeiro commit
+git add .
+git commit -m "Commit inicial: estrutura do projeto"
+
+# 4. Conectar com GitHub
+gh repo create meu-projeto --public
+git remote add origin git@github.com:usuario/meu-projeto.git
+
+# 5. Enviar para GitHub
+git push -u origin main
+
+# 6. Fluxo de desenvolvimento
+# ... fazer alterações nos arquivos ...
+git add .
+git commit -m "Adicionar nova funcionalidade"
+git push
+
+=== 13. SOLUÇÃO DE PROBLEMAS COMUNS ===
+
+# Erro de autenticação HTTPS
+git remote set-url origin git@github.com:usuario/projeto.git
+
+# Problema com chave SSH
+ssh-add ~/.ssh/id_ed25519
+
+# Conflito de merge
+git status                  # Ver arquivos em conflito
+# Editar arquivos manualmente para resolver conflitos
+git add .
+git commit -m "Resolver conflitos de merge"
+
+# Esqueceu de fazer pull antes de push
+git pull --rebase origin main
+git push
+
+===============================================
+    DICAS IMPORTANTES
+===============================================
+
+1. Sempre faça commits frequentes com mensagens descritivas
+2. Use branches para novas funcionalidades
+3. Faça pull antes de push para evitar conflitos
+4. Use SSH para autenticação mais segura
+5. Mantenha o .gitignore atualizado
+6. Faça backup regular com push para GitHub
+
+===============================================
+    COMANDOS DE EMERGÊNCIA
+===============================================
+
+# Ver ajuda de qualquer comando
+git help <comando>
+git <comando> --help
+
+# Status detalhado
+git status -v
+
+# Log gráfico
+git log --graph --oneline --all
+
+# Reverter para commit específico
+git revert <hash-do-commit>
+
+# Ver diferenças entre commits
+git diff <commit1> <commit2>
+
+===============================================
+Arquivo criado em: $(date)
+Projeto: meu-projeto-html
+Usuário: dariosiqueira
+===============================================

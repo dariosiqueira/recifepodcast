@@ -1,0 +1,23 @@
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dependências (se usar Node.js futuramente)
+node_modules/
+npm-debug.log*
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.swo
+
+# Arquivos de backup
+*.bak
+*~
+
+# Cache
+.cache/

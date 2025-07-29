@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RECIFEPODCAST</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <section class="header-section">
+            <a href="index.html" class="header-link">
+                <img src="img/FOTO_PERFIL/1.png" alt="Logo do RecifePodcast" class="header-icon">
+            </a>
+            <span class="header-date" id="current-date"></span>
+            <nav class="header-nav">
+                <a href="https://www.youtube.com/@RecifePodcast" target="_blank"> 
+                    <img src="img/Icones/youtube_fundo_preto.png" alt="YouTube" class="social-icon">
+                </a>
+                <a href="https://www.instagram.com/recifepodcast/" target="_blank">
+                    <img src="img/Icones/insta_fundo_preto.png" alt="Instagram" class="social-icon">
+                </a>
+                <a href="pag_1.html">
+                    <img src="img/Icones/facebook_fundo_preto.png" alt="Facebook" class="social-icon">
+                </a>
+            </nav>
+        </section>
+        
+        <script>
+            const now = new Date();
+            document.getElementById('current-date').textContent =
+                now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
+        </script>
+    </header>
+
+    <main class="main-vertical" style="background-image: url('img/CAPAS/3.png'); ">
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 RecifePodcast. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
